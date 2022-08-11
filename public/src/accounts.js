@@ -1,5 +1,7 @@
+const isSame = (find1,find2,) => find1 ===find2;
+
 function findAccountById(accounts, id) {
-  let found = accounts.find((account)=>account.id===id);
+  let found = accounts.find((account)=>isSame(account.id,id));
       return found
 }
 
@@ -15,7 +17,7 @@ function getTotalNumberOfBorrows(account, books) {
     let currentBook=books[book];
     let currentBooksBorrowes=currentBook.borrows;
    for(let borrow in currentBooksBorrowes){
-     if (checkID===currentBooksBorrowes[borrow].id)count++}}
+     if (isSame(checkID,currentBooksBorrowes[borrow].id))count++}}
   return count
 }
 
@@ -24,12 +26,12 @@ function getBooksPossessedByAccount(account, books, authors) {
   for (let book in books){
     let currentBook=books[book];
     let currentBooksBorrowes=currentBook.borrows;
-    let borrow=currentBooksBorrowes.find( (borrow) => !borrow.returned && borrow.id === account.id);
+    let borrow=currentBooksBorrowes.find( (borrow) => !borrow.returned&&isSame(borrow.id,account.id));
     if (borrow) checkedOut.push(currentBook);
   }
   let result = [];
   for (let check in checkedOut){
-  let author = authors.find((author) => checkedOut[check].authorId === author.id);
+  let author = authors.find((author) => isSame(checkedOut[check].authorId,author.id));
   result.push({...checkedOut[check],author: author});
 }
 return result;
